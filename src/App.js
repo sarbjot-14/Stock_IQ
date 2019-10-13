@@ -13,6 +13,7 @@ function App() {
       question: "Which one has largest Market Cap?",
       check: "market_cap",
       inequality:">",
+      revealAll:false,
       hints: [
         { revenue: { penalty: -5, reveal: false } },
         { net_income: { penalty: -5, reveal: false } },
@@ -23,6 +24,7 @@ function App() {
     {
       question: "Which company has a lower PE ratio?",
       check: "pe",
+      revealAll:false,
       inequality:"<",
       hints: [
         { market_cap: -4, reveal: false },
@@ -157,7 +159,9 @@ function App() {
     });
   };
   const checkAnswer = (selectedComp) => {
-
+    let newModes = modes.slice();
+    newModes[0].revealAll = true;
+    setModes(newModes);
     console.log("did the select work? "+selectedComp.name);
     let otherOptions = comp_10.slice(round * 3, round * 3 + 3);
   
