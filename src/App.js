@@ -12,6 +12,7 @@ function App() {
     {
       question: "Which one has largest Market Cap?",
       check: "market_cap",
+      inequality:">",
       hints: [
         { revenue: { penalty: -5, reveal: false } },
         { net_income: { penalty: -5, reveal: false } },
@@ -21,7 +22,8 @@ function App() {
     },
     {
       question: "Which company has a lower PE ratio?",
-      check: "ps",
+      check: "pe",
+      inequality:"<",
       hints: [
         { market_cap: -4, reveal: false },
         { RD: -2, reveal: false },
@@ -30,8 +32,10 @@ function App() {
       ]
     }
   ]);
-
   const [comp_10, setComp10] = useState([]);
+  const [gameData, setGameData] = useState({round:0, score:0});
+
+  
   //const the_indicators = ["market_cap","revenue", "price", "RD", "net_income","debt_to_assets", "eps","pe","ps" ]
   //const the_indicators = [{"market_cap"},{"revenue"},{"price"}, {"RD"}, {"net_income"},{"debt_to_assets"}, {"eps"},{"pe"},{"ps"} ]
 
@@ -132,15 +136,19 @@ function App() {
   const revealHints = theHint => {
     ///hints:[{"revenue":{"penalty":-5,"reveal":false}},{"ne
     console.log("triggered " + theHint);
-    //const [modes, setModes] = useState([{question:"Which one has largest Market Cap?",check:"market_cap", hints:[{"revenue":-5,"reveal":false}, {"net_income":-5,"reveal":false},{"debt_to_assets":-2,"reveal":false}, {"pe":-2,"reveal":false}]},{question:"Which company has a lower PE ratio?",check:"ps", hints:[{"market_cap":-4,"reveal":false}, {"RD":-2,"reveal":false}, {"eps":-4,"reveal":false},{"ps":-3,"reveal":false}]}]);
     let newModes = modes.slice();
     modes[0].hints.map((hint, index) => {
       Object.keys(hint).map(key => {
         if (key == theHint) {
           console.log(newModes);
           let tempHint = hint;
-          tempHint[key].reveal = true;
-
+          if(!tempHint[key].reveal){
+            tempHint[key].reveal = true;
+            let tempGameData = gameData
+            tempGameData.score = tempGameData.score + hint[key].penalty
+            
+            setGameData(tempGameData);
+          }
           newModes[0].hints[index] = tempHint;
           console.log(newModes);
         }
@@ -148,10 +156,33 @@ function App() {
       });
     });
   };
-  const clicker = () => {
-    console.log("clikcer");
-  };
-  //revealHints();
+  const checkAnswer = (selectedComp) => {
+
+    console.log("did the select work? "+selectedComp.name);
+    let otherOptions = comp_10.slice(round * 3, round * 3 + 3);
+  
+    for(let i =0; i<otherOptions.length; i++){
+      if(selectedComp.name != otherOptions[i].name){
+        
+        if(Number(selectedComp.market_cap) < Number(otherOptions[i].market_cap )){
+          console.log("you selected the incorrect answer!!!!")
+         
+          let newObj  = {round:0,score:(gameData.score-5)}
+          setGameData(newObj);
+          return;
+        }
+      }
+    }
+   
+    //tempGameData.score = tempGameData.score +10
+    
+    let newObj  = {round:0,score:(gameData.score+10)}
+    setGameData(newObj);
+    console.log("you selected the correct answer!!!!")
+    return
+
+  }
+  //revalHints();
   let round = 0;
 
   return (
@@ -173,13 +204,13 @@ function App() {
 
         <h1>{modes[0].question}</h1>
         <div className="score">
-          <h2>Your Score Is:</h2>
+          <h2>Your Score Is:{gameData.score}</h2>
         </div>
       </div>
       <button onClick={startFlow}>Start!</button>
       <div className="stock-container">
         {comp_10.slice(round * 3, round * 3 + 3).map(comp => (
-          <Stock key={comp.name} mode={modes[0]} company={comp} />
+          <Stock handleClick= {checkAnswer} key={comp.name} mode={modes[0]} company={comp} />
         ))}
       </div>
     </div>

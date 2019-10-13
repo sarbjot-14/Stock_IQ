@@ -25,7 +25,7 @@ const Stock = props => {
 
         
       </div>
-      <button>Select</button>
+      <button onClick={() =>props.handleClick(props.company)} >Select</button>
     </div>
   );
 };
