@@ -7,21 +7,30 @@
   color:white;
 }
 
-
-
 .stock-container{
   display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.stock-container>div{
-  flex-grow:1;
+.stock-container >div{
+  margin:5px 10px;
 }
+
 
 .hints{
   display:flex;
   flex-direction:column;
+  
+
 }
+
+.hints>div{
+  flex-grow:1;
+}
+
 .hints>div{
   display:flex;
+  flex-direction:row;
 }
 .hints>div>h3{
   flex-grow:1;
