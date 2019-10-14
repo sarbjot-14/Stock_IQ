@@ -35,3 +35,10 @@
 .hints>div>h3{
   flex-grow:1;
 }
+
+#nextButton{
+  display: block;
+  max-width: 300px;
+  margin: auto;
+  background-color: blueviolet;
+}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Stock from "./components/Stock.js";
-import HintButtons from "./components/HintButtons.js";
 
 //var every_company=null;
 function App() {
@@ -42,8 +41,7 @@ function App() {
   //const the_indicators = [{"market_cap"},{"revenue"},{"price"}, {"RD"}, {"net_income"},{"debt_to_assets"}, {"eps"},{"pe"},{"ps"} ]
 
   // get all companies sp100
-  const all_company_req = `https://simfin.com/api/v1/info/all-entities?api-key=${apiKEY}`;
-  const sp100 = ['AAPL','ABBV','ABT','ACN','ADBE','AGN','AIG','ALL','AMGN','AMZN','AXP','BA','BAC','BIIB','BK','BKNG','BLK','BMY','BRK.B','C','CAT','CELG','CHTR','CL','CMCSA','COF','COP','COST','CSCO','CVS','CVX','DD','DHR','DIS','DOW','DUK','EMR','EXC','F','FB','FDX','GD','GE','GILD','GM','GOOG','GOOGL','GS','HD','HON','IBM','INTC','JNJ','JPM','KHC','KMI','KO','LLY','LMT','LOW','MA','MCD','MDLZ','MDT','MET','MMM','MO','MRK','MS','MSFT','NEE','NFLX','NKE','NVDA','ORCL','OXY','PEP','PFE','PG','PM','PYPL','QCOM','RTN','SBUX','SLB','SO','SPG','T','TGT','TXN','UNH','UNP','UPS','USB','UTX','V','VZ','WBA','WFC','WMT','XOM']
+  const sp100 = ['AAPL','ABBV','ABT','ACN','ADBE','AGN','AIG','ALL','SCHW','AMZN','AXP','BA','BAC','BIIB','TGT','BKNG','BLK','BMY','SBUX','WYNN','CAT','CELG','CHTR','CL','CMCSA','COF','COP','COST','CSCO','CVS','CVX','MCO','DHR','DIS','DOW','DUK','EMR','LULU','F','FB','FDX','GD','GE','GILD','GM','GOOG','GOOGL','GS','HD','HON','IBM','INTC','JNJ','JPM','KHC','KMI','KO','LLY','LMT','LOW','MA','MCD','MDLZ','MDT','MET','MMM','MO','MRK','MS','MSFT','SWKS','NFLX','NKE','NVDA','ORCL','OXY','PEP','PFE','PG','PM','PYPL','QCOM','RTN','SBUX','SLB','MU','SPG','T','TGT','TXN','UNH','UNP','UPS','USB','UTX','V','VZ','WBA','WFC','WMT','XOM']
 
   //var comp_10 = [];
 
@@ -69,10 +67,15 @@ function App() {
 
     for (let i = 0; i < 10; i++) {
       let tick = rand10[i].ticker;
-      let comp = await get_simid(tick);
-
-      rand10[i].name = comp[0].name;
-      rand10[i].simId = comp[0].simId;
+      try{
+        let comp = await get_simid(tick);
+        rand10[i].name = comp[0].name;
+        rand10[i].simId = comp[0].simId;
+      }
+      catch{
+        console.log("could not get name offfff " + tick)
+      }
+      
     }
 
     rand10 = await addIndicators(rand10);
@@ -159,11 +162,12 @@ function App() {
     });
   };
   const checkAnswer = (selectedComp) => {
+ 
     let newModes = modes.slice();
     newModes[0].revealAll = true;
     setModes(newModes);
     console.log("did the select work? "+selectedComp.name);
-    let otherOptions = comp_10.slice(round * 3, round * 3 + 3);
+    let otherOptions = comp_10.slice(gameData.round * 3, gameData.round * 3 + 3);
   
     for(let i =0; i<otherOptions.length; i++){
       if(selectedComp.name != otherOptions[i].name){
@@ -187,7 +191,18 @@ function App() {
 
   }
   //revalHints();
-  let round = 0;
+  //let round = 0;
+
+  let button;
+
+  if (gameData.round==0) {
+      button= (<button id="nextButton" onClick={startFlow}>Start</button>)
+  } else if(gameData.round<3) {
+    button = (<button id="nextButton" onClick={startFlow}>Next</button>)
+  }
+  else{
+    button = (<button id="nextButton" onClick={startFlow}>Finish</button>)
+  }
 
   return (
     <div className="App">
@@ -209,11 +224,13 @@ function App() {
         <h1>{modes[0].question}</h1>
         <div className="score">
           <h2>Your Score Is:{gameData.score}</h2>
+          <h2>Round:{gameData.round}</h2>
         </div>
       </div>
-      <button onClick={startFlow}>Start!</button>
+      
+      {button}
       <div className="stock-container">
-        {comp_10.slice(round * 3, round * 3 + 3).map(comp => (
+        {comp_10.slice(gameData.round * 3, gameData.round * 3 + 3).map(comp => (
           <Stock handleClick= {checkAnswer} key={comp.name} mode={modes[0]} company={comp} />
         ))}
       </div>
