@@ -9,7 +9,7 @@ const Stock = props => {
   }
   const convertBill= money =>{
     if(Number(money)>100000000){
-      console.log("IT IS MORE")
+      //console.log("IT IS MORE")
       return ((Number(money/1000000000)).toFixed(2)+"B")
     }
     else{
