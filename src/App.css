@@ -20,8 +20,6 @@
 .hints{
   display:flex;
   flex-direction:column;
-  
-
 }
 
 .hints>div{
@@ -41,4 +39,14 @@
   max-width: 300px;
   margin: auto;
   background-color: blueviolet;
+}
+
+#stock-color-default{
+  background-color: rgb(153, 108, 49);
+}
+#stock-color-right{
+  background-color: rgb(82, 194, 82) ;
+}
+#stock-color-wrong{
+  background-color: rgb(255, 83, 83) ;
 }

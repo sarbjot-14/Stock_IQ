@@ -138,6 +138,8 @@ function App() {
   };
   const startFlow = () => {
     document.getElementById("fetch").innerText = "Fetching Data Please Wait";
+
+    if(document.getElementById("intro") != null){document.getElementById("intro").innerText = "."};
     console.log("starting flow");
     if (gameData.round == 0) {
       setGameData({ round: 0, score: 0, buttonStatus: "Start" });
@@ -176,6 +178,7 @@ function App() {
     });
   };
   const checkAnswer = selectedComp => {
+    
     let newModes = modes.slice();
     newModes[0].revealAll = true;
     setModes(newModes);
@@ -191,6 +194,10 @@ function App() {
           Number(selectedComp.market_cap) < Number(otherOptions[i].market_cap)
         ) {
           console.log("you selected the incorrect answer!!!!");
+          let temp10 = comp_10.slice()
+          temp10[9] = {name:'wrong'};
+          setComp10(temp10);
+                //document.getElementById('theHeader').innerText = "Incorrect!!"
 
           let newObj = {
             round: gameData.round,
@@ -212,11 +219,26 @@ function App() {
     };
     setGameData(newObj);
     console.log("you selected the correct answer!!!!");
+    let temp10 = comp_10.slice()
+    temp10[9] = selectedComp;
+    setComp10(temp10);
+    //document.getElementById('theHeader').innerText = "Correct!!"
     return;
   };
   const nextRound = () => {
+    if(comp_10.length>=10){
+      let temp10 = comp_10.slice()
+      temp10.pop();
+      setComp10(temp10);
+    }
+    
     let newModes = modes.slice();
     newModes[0].revealAll = false;
+    newModes[0].hints.forEach(hint=>{
+      Object.keys(hint).forEach(hintName=>{
+        hint[hintName].reveal = false;
+      })
+    })               
     setModes(newModes);
     let newObj = {
       round: gameData.round + 1,
@@ -251,7 +273,8 @@ function App() {
       </button>
     );
   }
-
+  console.log("this is the array now " + comp_10.length)
+ 
   return (
     <div className="App">
       <div className="header">
@@ -261,24 +284,25 @@ function App() {
             {modes[0].hints.map(hint => (
               <div>
                 <button onClick={() => revealHints(Object.keys(hint)[0])}>
-                  {Object.keys(hint)[0]}
+                  {Object.keys(hint)[0]+" "+hint[Object.keys(hint)[0]].penalty} 
                 </button>
-                <span>{hint[Object.keys(hint)[0]].penalty}</span>
+                
               </div>
             ))}
           </div>
         </div>
 
-        <h1>{modes[0].question}</h1>
+        <h1 id="theHeder">Which Company Has The Highest Market Cap</h1>
         <div className="score">
-          <h2>Your Score Is:{gameData.score}</h2>
-          <h2>Round:{gameData.round}</h2>
+          <h2>Your Score Is: {gameData.score}</h2>
+          <h2>Round: {gameData.round}</h2>
         </div>
       </div>
 
       {button}
 
       <h3 id="fetch"></h3>
+      {gameData.round<3?(
       <div className="stock-container">
         {comp_10.slice(gameData.round * 3, gameData.round * 3 + 3).map(comp => (
           <Stock
@@ -286,14 +310,35 @@ function App() {
             key={comp.name}
             mode={modes[0]}
             company={comp}
+            answer={comp_10.length ==10?(comp_10[9].name):(null)}
+            
           />
         ))}
-      </div>
+      </div>):(<div></div>)}
       {gameData.round == 3 ? (
         <h2>Game Over, Your Score Is: {gameData.score}</h2>
       ) : (
         <h3></h3>
       )}
+      {gameData.round == 0 ? (
+        <div id="intro">
+        <h2>This game was created to test one's awareness of some of the largest US publicly traded companies. This game is for those interested in the stock market and I encourage you to google some companies you may have not heard of during gameplay.</h2>
+        <h3>Help</h3>
+        <ul>
+          <li>
+            Correct answers are 20 points and incorrect answers are -10 
+          </li>
+          <li>
+            There are three rounds, but you can always try again!
+          </li>
+          <li>
+            Feel free to take some hints along the way, but they will cost you.
+          </li>
+        </ul>
+        </div>
+      ) : (
+        <h3></h3>)}
+        
     </div>
   );
 }
