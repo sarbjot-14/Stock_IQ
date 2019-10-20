@@ -64,15 +64,15 @@ function App() {
       var r = Math.floor(Math.random() * 100) + 1;
       if (arr.indexOf(r) === -1) arr.push(r);
     }
-    console.log("THE RANDOM ARRAY ISSSS..." + arr);
+    //console.log("THE RANDOM ARRAY ISSSS..." + arr);
     let rand10 = [];
     for (let i = 0; i < 9; i++) {
       let item = sp100[arr[i]];
       let obj = { ticker: item };
       rand10.push(obj);
-      //console.log("appending " + rand10)
+      ////console.log("appending " + rand10)
     }
-    console.log(rand10);
+    //console.log(rand10);
     //add SimFinId and Name
 
     for (let i = 0; i < 9; i++) {
@@ -82,13 +82,13 @@ function App() {
         rand10[i].name = comp[0].name;
         rand10[i].simId = comp[0].simId;
       } catch {
-        console.log("could not get name offfff " + tick);
+        //console.log("could not get name offfff " + tick);
       }
     }
 
     rand10 = await addIndicators(rand10);
-    console.log("has everything");
-    console.log(rand10);
+    //console.log("has everything");
+    //console.log(rand10);
 
     return rand10;
   };
@@ -104,15 +104,20 @@ function App() {
     for (let i = 0; i < 9; i++) {
       let SimFinId = companies[i].simId;
       let ind = await get_indicators(SimFinId);
-
-      companies[i].market_cap = ind[41].value;
-      companies[i].revenue = ind[5].value;
-      companies[i].price = ind[0].value;
-      companies[i].net_income = ind[17].value;
-      companies[i].debt_to_assets = ind[53].value;
-      //companies[i].eps = ind[54].value;
-      //companies[i].pe = ind[60].value;
-      //companies[i].ps = ind[60].value;
+      try{
+        companies[i].market_cap = ind[41].value;
+        companies[i].revenue = ind[5].value;
+        companies[i].price = ind[0].value;
+        companies[i].net_income = ind[17].value;
+        companies[i].debt_to_assets = ind[53].value;
+        //companies[i].eps = ind[54].value;
+        //companies[i].pe = ind[60].value;
+        //companies[i].ps = ind[60].value;
+      }
+      catch{
+        window.alert("Something went wrong. Please refresh and try again.")
+      }
+      
 
       for (var key in companies[i]) {
         if (companies[i][key] == null) {
@@ -142,7 +147,7 @@ function App() {
     document.getElementById("fetch").innerText = "Fetching Data Please Wait";
 
     if(document.getElementById("intro") != null){document.getElementById("intro").innerText = "."};
-    console.log("starting flow");
+    //console.log("starting flow");
     if (gameData.round == 0) {
       setGameData({ round: 0, score: 0, buttonStatus: "Start" });
     } else {
@@ -158,12 +163,12 @@ function App() {
 
   const revealHints = theHint => {
     ///hints:[{"revenue":{"penalty":-5,"reveal":false}},{"ne
-    console.log("triggered " + theHint);
+    //console.log("triggered " + theHint);
     let newModes = modes.slice();
     modes[0].hints.map((hint, index) => {
       Object.keys(hint).map(key => {
         if (key == theHint) {
-          console.log(newModes);
+          //console.log(newModes);
           let tempHint = hint;
           if (!tempHint[key].reveal) {
             tempHint[key].reveal = true;
@@ -173,7 +178,7 @@ function App() {
             setGameData(tempGameData);
           }
           newModes[0].hints[index] = tempHint;
-          console.log(newModes);
+          //console.log(newModes);
         }
         setModes(newModes);
       });
@@ -184,7 +189,7 @@ function App() {
     let newModes = modes.slice();
     newModes[0].revealAll = true;
     setModes(newModes);
-    console.log("did the select work? " + selectedComp.name);
+    //console.log("did the select work? " + selectedComp.name);
     let otherOptions = comp_10.slice(
       gameData.round * 3,
       gameData.round * 3 + 3
@@ -195,7 +200,7 @@ function App() {
         if (
           Number(selectedComp.market_cap) < Number(otherOptions[i].market_cap)
         ) {
-          console.log("you selected the incorrect answer!!!!");
+          //console.log("you selected the incorrect answer!!!!");
           let temp10 = comp_10.slice()
           temp10[9] = {name:'wrong'};
           setComp10(temp10);
@@ -220,7 +225,7 @@ function App() {
       buttonStatus: "Next"
     };
     setGameData(newObj);
-    console.log("you selected the correct answer!!!!");
+    //console.log("you selected the correct answer!!!!");
     let temp10 = comp_10.slice()
     temp10[9] = selectedComp;
     setComp10(temp10);
@@ -248,8 +253,8 @@ function App() {
       buttonStatus: "Next"
     };
     setGameData(newObj);
-    console.log("next round obj is");
-    console.log(newObj);
+    //console.log("next round obj is");
+    //console.log(newObj);
   };
   //revalHints();
   //let round = 0;
@@ -275,7 +280,7 @@ function App() {
       </Button>
     );
   }
-  console.log("this is the array now " + comp_10.length)
+  //console.log("this is the array now " + comp_10.length)
  
   return (
     <div className="App">

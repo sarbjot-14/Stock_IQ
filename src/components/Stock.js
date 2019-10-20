@@ -16,7 +16,7 @@ const Stock = props => {
   };
 
   if (props.answer == null) {
-    console.log("IT IS NULLLL");
+    //console.log("IT IS NULLLL");
     let arr = document.getElementsByClassName("stock-box");
 
     Array.prototype.forEach.call(arr, aStock => {
