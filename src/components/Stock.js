@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from 'react-bootstrap';
+
 
 const Stock = props => {
   const checkAnswer = () => {
@@ -33,6 +35,7 @@ const Stock = props => {
   return (
     <div id="stock-color-default" className="stock-box">
       <h1 className="name" id={props.company.name}>{props.company.name}</h1>
+  
       <div id="the_hints" className="hints">
         <div>
           <h3>HINT</h3>
@@ -43,7 +46,7 @@ const Stock = props => {
           <div className="hints">
             {Object.keys(hint).map(key => (
               <div>
-                <h3>{key}:</h3>
+                <h3>{key.replace(/_/g, " ")}:</h3>
                 {hint[key].reveal | props.mode.revealAll ? (
                   <h3>{convertBill(props.company[key])}</h3>
                 ) : (
@@ -63,11 +66,11 @@ const Stock = props => {
         </div>
       </div>
       {props.mode.revealAll ? (
-        <button id={props.company.name}>Select</button>
+        <Button id={props.company.name}>Select</Button>
       ) : (
-        <button id={props.company.name} onClick={checkAnswer}>
+        <Button id={props.company.name} onClick={checkAnswer}>
           Select
-        </button>
+        </Button>
       )}
     </div>
   );

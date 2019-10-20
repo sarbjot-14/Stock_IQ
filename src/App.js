@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Stock from "./components/Stock.js";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { Button, Jumbotron } from 'react-bootstrap';
 //var every_company=null;
 function App() {
   //const apiKEY = "lC34BoEHVvDSS6xE8At6ofih5T6adCU";
@@ -256,52 +258,54 @@ function App() {
 
   if ((gameData.round == 0) & (gameData.buttonStatus == "Start")) {
     button = (
-      <button id="nextButton" onClick={startFlow}>
+      <Button id="nextButton" onClick={startFlow}>
         Start
-      </button>
+      </Button>
     );
   } else if ((gameData.round < 3) & (gameData.buttonStatus == "Next")) {
     button = (
-      <button id="nextButton" onClick={nextRound}>
+      <Button id="nextButton" size="lg" onClick={nextRound}>
         Next
-      </button>
+      </Button>
     );
   } else {
     button = (
-      <button id="nextButton" onClick={startFlow}>
+      <Button id="nextButton" onClick={startFlow}>
         Restart
-      </button>
+      </Button>
     );
   }
   console.log("this is the array now " + comp_10.length)
  
   return (
     <div className="App">
+      
       <div className="header">
-        <div>
+        <div className="score">
           <h2>Hints</h2>
           <div>
             {modes[0].hints.map(hint => (
               <div>
-                <button onClick={() => revealHints(Object.keys(hint)[0])}>
-                  {Object.keys(hint)[0]+" "+hint[Object.keys(hint)[0]].penalty} 
-                </button>
+                <Button variant="outline-info" onClick={() => revealHints(Object.keys(hint)[0])} block>
+                  {(Object.keys(hint)[0]).replace(/_/g, " ")+": "+hint[Object.keys(hint)[0]].penalty} 
+                </Button>
                 
               </div>
             ))}
           </div>
         </div>
 
-        <h1 id="theHeder">Which Company Has The Highest Market Cap</h1>
+        <h1 id="theHeader">Which Company Has The Highest Market Cap</h1>
         <div className="score">
-          <h2>Your Score Is: {gameData.score}</h2>
+          <h2>Score: {gameData.score}</h2>
           <h2>Round: {gameData.round}</h2>
         </div>
       </div>
 
       {button}
 
-      <h3 id="fetch"></h3>
+      <h1 id="fetch"></h1>
+     
       {gameData.round<3?(
       <div className="stock-container">
         {comp_10.slice(gameData.round * 3, gameData.round * 3 + 3).map(comp => (
@@ -321,8 +325,8 @@ function App() {
         <h3></h3>
       )}
       {gameData.round == 0 ? (
-        <div id="intro">
-        <h2>This game was created to test one's awareness of some of the largest US publicly traded companies. This game is for those interested in the stock market and I encourage you to google some companies you may have not heard of during gameplay.</h2>
+        <Jumbotron  id="intro">
+        <h2>This game was created to test one's awareness of some of the largest US publicly traded companies. Targeted for those interested in the stock market and I encourage you to google some companies you may have not heard of during gameplay.</h2>
         <h3>Help</h3>
         <ul>
           <li>
@@ -335,7 +339,8 @@ function App() {
             Feel free to take some hints along the way, but they will cost you.
           </li>
         </ul>
-        </div>
+      </Jumbotron>
+        
       ) : (
         <h3></h3>)}
         

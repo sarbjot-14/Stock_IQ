@@ -1,10 +1,13 @@
 .header{
   display: flex; 
+  flex-wrap: wrap;
 }
+
 .header > div{
   flex-grow:1;
-  background-color: #682D2D;
+  background-color: #0D324D;
   color:white;
+
 }
 
 .stock-container{
@@ -14,6 +17,11 @@
 }
 .stock-container >div{
   margin:5px 10px;
+  border-radius:5px;
+  -webkit-border-radius:5px;
+  padding:2%;
+  align-content: center;
+  max-width:400px;
 }
 
 
@@ -38,15 +46,51 @@
   display: block;
   max-width: 300px;
   margin: auto;
-  background-color: blueviolet;
+ 
 }
 
 #stock-color-default{
-  background-color: rgb(153, 108, 49);
+  background-color:#598392;
 }
 #stock-color-right{
-  background-color: rgb(82, 194, 82) ;
+  background-color: rgb(96, 247, 96) ;
 }
 #stock-color-wrong{
-  background-color: rgb(255, 83, 83) ;
+  background-color: rgb(255, 161, 161) ;
+}
+
+.score>h1{
+  padding:50px;
+}
+
+#theHeader{
+  text-align: center;
+  padding-top: 5%;
+  max-width: 700px;
+}
+
+.score{
+  padding:2%;
+  margin: 1%;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  
+  max-width:200px;
+  max-height: 300px
+}
+
+@media (max-width:1100px){
+  .header{
+    display: flex; 
+    flex-wrap: wrap;
+  }
+
+  .header :nth-child(1) { order: 1; }
+  .header :nth-child(2) { order: 3; }
+  .header :nth-child(3) { order: 2; }
+
+}
+
+#fetch{
+  background-color: rgb(255, 255, 95); 
 }
