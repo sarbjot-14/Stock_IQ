@@ -114,7 +114,8 @@ function App() {
         //companies[i].pe = ind[60].value;
         //companies[i].ps = ind[60].value;
       }
-      catch{
+      catch(err){
+        console.log(err)
         window.alert("Something went wrong. Please refresh and try again.")
       }
       
