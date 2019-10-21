@@ -1,8 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# Project Name & Pitch
-
-*Stock IQ*
+# Stock IQ
 
 An application that tests your knowledge on some of the largest US publicly traded companies in the stock market.
 
@@ -11,57 +9,39 @@ Completed, but could add more features later on
 
 ## Project Screen Shot(s)
 
-![Weather App](/weather_app.png)
+![Weather App](/stock_IQ.png)
 
 ## Visit
 
-[Sarb's Weather App](https://sarbs-weather-app.herokuapp.com/)
-
-## Installation and Setup Instructions
-
-
-Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
-
-Installation:
-
-`npm install`  
-
-
-To Start Server:
-
-`npm start`
-or
-`node index.js`
-
-To Visit App:
-
-`localhost:5000/`  
+[Stock IQ web app](https://stock-iq.herokuapp.com)
 
 ## Reflection
 
 ### What was the context for this project? 
-* I wanted to do more web development therefore I thought this would be a good small project to learn web development funamentals such as HTML, css, javascript, and some server side development
+* Wanted to learn react.js and help others and myself learn about the stock market.
 
 ### Learning Outcomes?
-1. Forced me to think about design details and practice css tools such as flexbox.
-2. Helped me better understand the server-client architecture
+1. Learned basics of react.js and the benifits of using compponents
+2. Learned more about stocks and corporations I was not aware of.
 3. Learned how to work with api's and transfering data in json format. Learning how to use fetch with api's
 4. Learned about asynchronous concepts such as promises, .then, async functions, await keyword
-5. Learned how to create end points in express and use middleware to serve files and deal with json objects
+5. Learned about JSX and how javascript can be with inside html.
+6. Learned about react hooks such as setState.
 ### What were some unexpected obstacles?
-* I had to follow youtube tutorials to understand how to use api's and express, which slowed me down
-* Small errors such as not waiting to load the html before doing DOM manipulation caused time bugs
-* Inexpreince with Heroku deployment and github synchronization caused errors when deploying
+* I had to follow youtube tutorials to understand how to use api's, which slowed me down
+* Did not realize that the information promised in API may not be complete. which required addtional error handling.
+* Had a difficult time organizing data and understanding how data is passed betwwen components.
 
 
 ## What tools did you use to implement this project?
-* **Node.Js, Express** : Create server side for the client server model, make api calls, and load and icon
+* **react.js** : For front framework
 * **HTML, CSS** : For front end development
 * **npm** : As package manager
 * **Heroku** : To deploy application online
 
 ## Other resources
-* The Coding Train youtube channel : https://www.youtube.com/user/shiffman/videos?app=deskto
+* You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
 
 ## Available Scripts
 
@@ -90,8 +70,3 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-# Stock_IQ
