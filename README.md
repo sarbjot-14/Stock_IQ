@@ -2,7 +2,8 @@
 # Stock IQ
 
 An application that tests your knowledge on some of the largest US publicly traded companies in the stock market.
-* Pick which publically traded company 
+* Pick which publically traded company has highest market cap.
+* Take hints, but they will cost you points.
 
 
 ## Project Status
@@ -18,10 +19,10 @@ Completed, but could add more features later on
 
 ## Reflection
 
-### What was the context for this project? 
+### Context
 * Wanted to learn react.js and help others and myself learn about the stock market.
 
-### Learning Outcomes?
+### Learning Outcomes
 1. Learned basics of react.js and the benifits of using compponents
 2. Learned more about stocks and corporations I was not aware of.
 3. Learned how to work with api's and transfering data in json format. Learning how to use fetch with api's
