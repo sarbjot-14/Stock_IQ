@@ -1,8 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 # Stock IQ
 
 An application that tests your knowledge on some of the largest US publicly traded companies in the stock market.
+* Pick which publically traded company 
+
 
 ## Project Status
 Completed, but could add more features later on
@@ -27,13 +28,13 @@ Completed, but could add more features later on
 4. Learned about asynchronous concepts such as promises, .then, async functions, await keyword
 5. Learned about JSX and how javascript can be with inside html.
 6. Learned about react hooks such as setState.
-### What were some unexpected obstacles?
+### Unexpected Obstacles
 * I had to follow youtube tutorials to understand how to use api's, which slowed me down
 * Did not realize that the information promised in API may not be complete. which required addtional error handling.
 * Had a difficult time organizing data and understanding how data is passed betwwen components.
 
 
-## What tools did you use to implement this project?
+## Tech Stack
 * **react.js** : For front framework
 * **HTML, CSS** : For front end development
 * **npm** : As package manager
